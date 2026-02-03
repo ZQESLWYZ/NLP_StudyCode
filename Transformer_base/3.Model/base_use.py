@@ -20,12 +20,16 @@ sen = '小小的我也有大大的梦想'
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 inputs = tokenizer(sen, return_tensors='pt')
-print(model(**inputs))
+# print(model(**inputs))
 
-model = AutoModel.from_pretrained(model_name, output_attentions=True)
+model = AutoModel.from_pretrained(model_name, output_attentions=True, hidden_states=True)
 
 print(model(**inputs))
 
 output = model(**inputs)
 
 print(output.last_hidden_state.shape)
+
+print(output.pooler_output.shape) # [CLS] 标记的位置的池化输出
+
+print(output.hidden_states.shape)
